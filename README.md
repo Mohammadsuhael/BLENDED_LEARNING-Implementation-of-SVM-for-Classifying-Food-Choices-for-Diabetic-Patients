@@ -124,7 +124,6 @@ plt.show()
 ![image](https://github.com/user-attachments/assets/e8fac365-b11c-47f1-a826-3e7dc0a2b56a)
 
 
-![simple linear regression model for predicting the marks scored](sam.png)
 
 
 ## Result:
