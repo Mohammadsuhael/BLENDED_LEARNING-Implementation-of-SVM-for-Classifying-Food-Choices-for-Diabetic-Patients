@@ -38,6 +38,7 @@ Developed by: mohammad suhael
 RegisterNumber:  212224230164
 */
 
+
 # Import necessary libraries
 import pandas as pd
 from sklearn.model_selection import train_test_split, GridSearchCV
@@ -54,6 +55,7 @@ data = pd.read_csv('food_items_binary.csv')
 # Display the first few rows and column names for verification
 print(data.head())
 print(data.columns)
+
 # Step 3: Selecting Features and Target
 # Define relevant features and target column
 features = ['Calories', 'Total Fat', 'Saturated Fat', 'Sugars', 'Dietary Fiber', 'Protein']
@@ -73,55 +75,50 @@ X_test = scaler.transform(X_test)
 # Step 6: Model Training with Hyperparameter Tuning using GridSearchCV
 # Define the SVM model
 svm = SVC()
-# Step 6: Set up hyperparameter grid for tuning
+
+# Set up hyperparameter grid for tuning
 param_grid = {
-    'C': [0.1, 1, 10, 100],  # Regularization parameter
-    'kernel': ['linear', 'rbf'],  # Kernel types
-    'gamma': ['scale', 'auto']  # Kernel coefficient for 'rbf'
+    'C': [0.1, 1, 10, 100],              # Regularization parameter
+    'kernel': ['linear', 'rbf'],         # Kernel types
+    'gamma': ['scale', 'auto']           # Kernel coefficient for 'rbf'
 }
 
 # Initialize GridSearchCV
 grid_search = GridSearchCV(svm, param_grid, cv=5, scoring='accuracy')
-
-# Fit the model to the training data
 grid_search.fit(X_train, y_train)
 
 # Extract the best model
 best_model = grid_search.best_estimator_
-
-# Print best parameters
 print("Best Parameters:", grid_search.best_params_)
 
 # Step 7: Model Evaluation
 # Predicting on the test set using the best model
 y_pred = best_model.predict(X_test)
 
-# You can evaluate the model using accuracy, classification report, or confusion matrix here
-# Step 8: Calculate accuracy and print classification metrics
+# Calculate accuracy and print classification metrics
+print()
 accuracy = accuracy_score(y_test, y_pred)
 print("Accuracy:", accuracy)
-
-# Print Classification Report
 print("Classification Report:\n", classification_report(y_test, y_pred))
 
 # Confusion Matrix
 conf_matrix = confusion_matrix(y_test, y_pred)
-print("Confusion Matrix:\n", conf_matrix)
-
-# You can visualize the confusion matrix using a heatmap if needed:
-sns.heatmap(conf_matrix, annot=True, fmt='d', cmap='Blues', xticklabels=['Not Suitable', 'Suitable'], yticklabels=['Not Suitable', 'Suitable'])
-plt.xlabel('Predicted')
-plt.ylabel('True')
-plt.title('Confusion Matrix')
+sns.heatmap(conf_matrix, annot=True, fmt="d", cmap="Blues")
+plt.xlabel("Predicted")
+plt.ylabel("Actual")
+plt.title("Confusion Matrix")
 plt.show()
+
 
 
 ```
 
 ## Output:
 
-![image](https://github.com/user-attachments/assets/cd56702b-6c2d-4d4b-8e64-b9f113a830a7)
-![image](https://github.com/user-attachments/assets/e8fac365-b11c-47f1-a826-3e7dc0a2b56a)
+![image](https://github.com/user-attachments/assets/d5164f0e-5de7-4b90-8dd1-f0d278c60b46)
+![image](https://github.com/user-attachments/assets/596ae998-4cf0-4cb8-bc35-e3ea3ae37a8a)
+![image](https://github.com/user-attachments/assets/e4f989f5-b52f-430b-9f9f-8b66b359bb06)
+
 
 
 
